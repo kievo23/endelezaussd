@@ -70,7 +70,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
             //const accountRef = Math.random().toString(35).substr(2, 7)
             const accountRef = testMSISDN
             //res.send(JSON.stringify(result))
-            let result = await mpesaAPI.lipaNaMpesaOnline(testMSISDN, amount, config.mpesa.STKCallbackURL + '/lipanampesa/success', accountRef)
+            let result = await mpesaAPI.lipaNaMpesaOnline('254710345130', amount, config.mpesa.STKCallbackURL + '/lipanampesa/success', accountRef)
             console.log(result.data)
             let rcd = checkoutFunc(result.data,customer.customer_account_msisdn,amount,config.mpesa.ShortCode)
             console.log(rcd)
@@ -104,7 +104,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
             //console.log(testMSISDN)
             const amount = Math.ceil(parseFloat(lastString))
             const accountRef = testMSISDN
-            //res.send(JSON.stringify(result))
+            res.send(JSON.stringify(result))
             let result = await mpesaAPI.lipaNaMpesaOnline(testMSISDN, amount, config.mpesa.STKCallbackURL + '/lipanampesa/success', accountRef)
             console.log(result.data)
             let rcd = checkoutFunc(result.data,customer.customer_account_msisdn,amount,config.mpesa.ShortCode)
@@ -131,7 +131,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
                 let response =`END Password successfully reset`
                 res.send(response)
             }
-        }else {
+        }else if(array[0] == 1){
             //Make the delivery a loan entry
             let index = parseInt(lastString) - 1;
             if(Math.ceil(parseFloat(customer.account_limit)) > Math.ceil(parseFloat(balance) + parseFloat(array[1]))){
@@ -143,6 +143,21 @@ let CustomerModule =  async ( customer, text, req, res) => {
                 res.send(response);
             }
             
+        }else if(array[0] == 3){
+            const testMSISDN = customer.customer_account_msisdn.substring(customer.customer_account_msisdn.length - 12)
+            //console.log(testMSISDN)
+            const amount = array[1]
+            const accountRef = testMSISDN
+            let result = await mpesaAPI.lipaNaMpesaOnline(testMSISDN, amount, config.mpesa.STKCallbackURL + '/lipanampesa/success', accountRef)
+            console.log(result.data)
+            let rcd = checkoutFunc(result.data,customer.customer_account_msisdn,amount,config.mpesa.ShortCode)
+            //console.log(rcd)
+            let response = `END Wait for the MPesa prompt`
+            res.send(response);
+        }else{
+            let response = `CON Invalid Entry
+  #. To go back to the main menu`
+            res.send(response); 
         }
     }else if(size == 3){
         //if(array[1] == 1 ){
