@@ -139,7 +139,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
                 //sendSMS(customer.customer_account_msisdn,msg);
                 res.send(response);
             }else{
-                let response = `END Sorry, Your request has exceeded your facilitation limit. Your limit is currently at KES ${customer.account_limit}`
+                let response = `END Sorry, Your request has exceeded your facilitation limit. Your available limit is currently at KES ${parseFloat(customer.account_limit).toFixed(2) - balance}`
                 res.send(response);
             }
             
