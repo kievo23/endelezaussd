@@ -5,11 +5,11 @@ const mpesaApi = new Mpesa({
     consumerKey: config.mpesa.consumer_key, 
     consumerSecret: config.mpesa.consumer_secret,
     environment: config.mpesa.environment,
-    shortCode: config.mpesa.ShortCode,
-    lipaNaMpesaShortCode: config.mpesa.ShortCode,
+    shortCode: config.mpesa.TillShortCode,
+    lipaNaMpesaShortCode: config.mpesa.BusinessShortCode,
     lipaNaMpesaShortPass: config.mpesa.passkey,
     securityCredential: config.mpesa.securityCredential,
-    initiatorName : config.mpesa.initiatorName
+    transactionType : "CustomerBuyGoodsOnline"
 })
 
 const {
