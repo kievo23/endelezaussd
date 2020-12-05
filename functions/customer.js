@@ -144,7 +144,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
                     borrowed = balance
                 }
                 let index = parseInt(lastString) - 1;
-                if(Math.ceil(parseFloat(customer.account_limit)) > Math.ceil(parseFloat(borrowed) + parseFloat(array[1]))){
+                if(Math.ceil(parseFloat(customer.account_limit)) >= Math.ceil(parseFloat(borrowed) + parseFloat(array[1]))){
                     let response = `CON Input the tillNumber to receive funds`
                     //sendSMS(customer.customer_account_msisdn,msg);
                     res.send(response);
