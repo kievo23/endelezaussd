@@ -33,12 +33,14 @@ let CustomerModule =  async ( customer, text, req, res) => {
 
         let loans = await LoanAccount.findAll({include: [Delivery], where: { loan_status : 0, customer_account_id : customer.id } })
         let balance = 0
+        let principal = 0
         let count = 0
         let dates = ''
         //console.log(deliveries)
         for (index = 0; index < loans.length; ++index) {
             balance += Math.ceil(parseFloat(loans[index].loan_balance))
             //console.log(loans[index].loan_balance)
+            principal += Math.ceil(parseFloat(loans[index].principal_amount))
             count = count + 1
             dates = dates + loans[index].createdAt+", "
         }
@@ -141,7 +143,13 @@ let CustomerModule =  async ( customer, text, req, res) => {
                     //sendSMS(customer.customer_account_msisdn,msg);
                     res.send(response);
                 }else{
-                    let response = `END Sorry, Your request has exceeded your facilitation limit. Your available limit is currently at KES ${parseFloat(customer.account_limit).toFixed(2) - balance}`
+                    let available_limit = 0
+                    if(balance > principal){
+                        available_limit = principal
+                    }else{
+                        available_limit = balance
+                    }
+                    let response = `END Sorry, Your request has exceeded your facilitation limit. Your available limit is currently at KES ${parseFloat(customer.account_limit).toFixed(2) - available_limit}`
                     res.send(response);
                 }
                 
