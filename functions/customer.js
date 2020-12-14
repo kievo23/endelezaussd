@@ -17,6 +17,7 @@ const LoanAccount = require('../models/Loan_Account');
 //SMS
 const sendSMS = require('../functions/sendSMS');
 const mpesaAPI = require('../functions/mpesa');
+const sendMail = require('../functions/emails');
 
 //configs
 const config = require(__dirname + '/../config.json');
@@ -131,7 +132,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
                         console.log(user);
                     });
 
-                    sendSMS(phone,"Welcome "+customer.person.first_name+", Your one time password is: "+code);
+                    //sendSMS(phone,"Welcome "+customer.person.first_name+", Your one time password is: "+code);
                     let response =`END Password successfully reset`
                     res.send(response)
                 }
@@ -185,7 +186,10 @@ let CustomerModule =  async ( customer, text, req, res) => {
                     customer_id: customer.id,
                     till_number: till,
                     phone: req.body.phoneNumber
-                })
+                });
+                //Send Mail to Meshak to notify them of a new loan request.
+                sendMail(customer.person.first_name,customer.customer_account_msisdn, amount).catch(console.error);
+
                 let response =`END We have received your loan request of ${array[1]} paid to till number ${array[2]}
         Keep enjoying Endeleza services`
                 res.send(response)

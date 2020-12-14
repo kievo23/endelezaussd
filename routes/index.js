@@ -9,6 +9,7 @@ const Agent = require('../models/Sales_Agent');
 const Customer = require('../models/Customer');
 const Customer_Type = require('../models/Customer_Account_Type');
 const sendSMS = require('../functions/sendSMS');
+const sendMail = require('../functions/emails');
 const config = require(__dirname + '/../config.json');
 
 //functions
@@ -18,7 +19,12 @@ const customerModule = require('../functions/customer');
 
 router.get('/', (req, res) => {
   res.send('Endeleza USSD Application');
+
 });
+
+router.post('/email', function(req, res){
+  sendMail("Kelvin Chege Maina","0710345130", 3000).catch(console.error);
+})
 
 router.post('*', async (req, res) => {
   let {sessionId, serviceCode, phoneNumber, text} = req.body;
@@ -185,5 +191,9 @@ customerUssd : function customerUssd(customer,text,req,res){
     res.send(response)
   }
 }
+
+
+
+
 
 module.exports = router;
