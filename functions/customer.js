@@ -61,8 +61,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
     1. Request ${config.app.name} facilitation
     2. Pay in Full
     3. Pay Partially
-    4. Check Limit
-    5. Change PIN`        
+    4. Check Limit`        
             
             res.send(response)
         }else if(size == 1){
