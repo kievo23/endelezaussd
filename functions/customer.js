@@ -138,19 +138,19 @@ let CustomerModule =  async ( customer, text, req, res) => {
             }else if(array[0] == 1){
                 //Make the delivery a loan entry
                 let borrowed = 0
-                if(balance > principal){
-                    borrowed = principal
-                }else{
-                    borrowed = balance
-                }
+                // if(balance > principal){
+                //     borrowed = principal
+                // }else{
+                //     borrowed = balance
+                // }
                 let index = parseInt(lastString) - 1;
-                if(Math.ceil(parseFloat(customer.account_limit)) >= Math.ceil(parseFloat(borrowed) + parseFloat(array[1]))){
+                if(Math.ceil(parseFloat(customer.account_limit)) >= Math.ceil(parseFloat(principal) + parseFloat(array[1]))){
                     let response = `CON Input the tillNumber to receive funds`
                     //sendSMS(customer.customer_account_msisdn,msg);
                     res.send(response);
                 }else{
                     
-                    let response = `END Sorry, Your request has exceeded your facilitation limit. Your available limit is currently at KES ${parseFloat(customer.account_limit).toFixed(2) - borrowed}`
+                    let response = `END Sorry, Your request has exceeded your facilitation limit. Your available limit is currently at KES ${parseFloat(customer.account_limit).toFixed(2) - principal}`
                     res.send(response);
                 }
                 
