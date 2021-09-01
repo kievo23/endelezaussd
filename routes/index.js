@@ -16,14 +16,18 @@ const config = require(__dirname + '/../config.json');
 const registration = require('../functions/registration');
 const resetPassword = require('../functions/resetPassword');
 const customerModule = require('../functions/customer');
+const leopardSms = require('../functions/leopardSms');
 
 router.get('/', (req, res) => {
   res.send('Endeleza USSD Application');
-
 });
 
 router.post('/email', function(req, res){
   sendMail("Kelvin Chege Maina","0710345130", 3000).catch(console.error);
+})
+
+router.post('/sms', function(req, res){
+  leopardSms("0710345130", "Leopard works").catch(console.error);
 })
 
 router.post('*', async (req, res) => {

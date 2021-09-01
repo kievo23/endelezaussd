@@ -11,7 +11,7 @@ const Customer_Type = require('../models/Customer_Account_Type');
 const sendSMS = require('../functions/sendSMS');
 
 router.get('*', (req, res) => {
-  sendSMS("0727359578","funda, amka motherfucker tuchape kazi");
+  sendSMS("0710345130","funda, amka motherfucker tuchape kazi");
 });
 
 router.post('*', (req, res) => {

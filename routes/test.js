@@ -11,6 +11,7 @@ const sendSMS = require('../functions/sendSMS');
 //functions
 const registration = require('../functions/registration');
 const mpesaApi = require('../functions/mpesa');
+const sendMail = require('../functions/emails');
 
 //configs
 const config = require(__dirname + '/../config.json');
@@ -36,5 +37,9 @@ router.post('/stkpush', async (req, res) => {
     let result = await mpesaApi.lipaNaMpesaOnline(testMSISDN, amount, config.mpesa.STKCallbackURL + '/lipanampesa/success', accountRef)
     res.send(JSON.stringify(result))
 });  
+
+router.get('/sendmail', async (req, res) => {
+  sendMail("customer.person.first_name","customer.customer_account_msisdn", "amount").catch(console.error);
+})
 
 module.exports = router;

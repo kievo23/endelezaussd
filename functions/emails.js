@@ -19,7 +19,7 @@ const Email = async function main(name,phone,amount) {
   
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: '"Endeleza System Admin 👻" <systems@endelezacapital.com>', // sender address
+      from: '"Endeleza System Admin 👻👻👻👻" <systems@endelezacapital.com>', // sender address
       to: config.email.recipient, // list of receivers
       subject: "New Loan Request ✔", // Subject line
       text: "New loan request from "+ name+ " requesting for a loan of KES "+amount, // plain text body

@@ -15,7 +15,7 @@ const Delivery = require('../models/Delivery_Notification');
 const Checkout = require('../models/Checkout');
 const LoanAccount = require('../models/Loan_Account');
 //SMS
-const sendSMS = require('../functions/sendSMS');
+const leopardSMS = require('../functions/leopardSms');
 const mpesaAPI = require('../functions/mpesa');
 const sendMail = require('../functions/emails');
 
@@ -138,11 +138,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
             }else if(array[0] == 1){
                 //Make the delivery a loan entry
                 let borrowed = 0
-                // if(balance > principal){
-                //     borrowed = principal
-                // }else{
-                //     borrowed = balance
-                // }
+                
                 let index = parseInt(lastString) - 1;
                 if(Math.ceil(parseFloat(customer.account_limit)) >= Math.ceil(parseFloat(principal) + parseFloat(array[1]))){
                     let response = `CON Input the tillNumber to receive funds`
@@ -186,6 +182,9 @@ let CustomerModule =  async ( customer, text, req, res) => {
                     till_number: till,
                     phone: req.body.phoneNumber
                 });
+
+                leopardSMS(config.sms.customer_service, "One of Endeleza Customers needs a loan, Kindly attend to it.")
+                leopardSMS(req.body.phoneNumber, "Esteemed customer, we have received your loan request. Kindly wait upto a maximum of 15 minutes as we process your loan")
                 //Send Mail to Meshak to notify them of a new loan request.
                 sendMail(customer.person.first_name,customer.customer_account_msisdn, amount).catch(console.error);
 
