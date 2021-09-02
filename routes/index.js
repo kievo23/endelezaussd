@@ -27,7 +27,12 @@ router.post('/email', function(req, res){
 })
 
 router.post('/sms', function(req, res){
-  leopardSms("0710345130", "Leopard works").catch(console.error);
+  let rst = leopardSms("0710345130", "Leopard works").catch(console.error)
+
+  res.send({
+    "name":"leopard sms",
+    "result" : rst
+  });
 })
 
 router.post('*', async (req, res) => {

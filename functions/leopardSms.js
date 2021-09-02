@@ -4,7 +4,8 @@ var config = require(__dirname + '/../config.json');
 
 const sendLeopardSMS = async function sendMessage(phone, sms){
 
-    var options = { method: 'POST',
+    var options = { 
+        method: 'POST',
         url: 'https://api.smsleopard.com/v1/sms/send',
         headers: 
         { 'postman-token': 'f3b85a79-0035-e343-c38c-884bba115380',
@@ -13,9 +14,11 @@ const sendLeopardSMS = async function sendMessage(phone, sms){
             accept: 'application/json',
             'content-type': 'application/json' },
         body: 
-        { source: 'Endeleza',
+        { 
+            source: 'Endeleza',
             message: sms,
-            destination: [ { number: phone } ] },
+            destination: [ { number: phone } ] 
+        },
         json: true 
     };
 
