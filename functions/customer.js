@@ -183,8 +183,8 @@ let CustomerModule =  async ( customer, text, req, res) => {
                     phone: req.body.phoneNumber
                 });
 
-                leopardSMS(config.sms.customer_service, "One of Endeleza Customers needs a loan, Kindly attend to it.")
-                leopardSMS(req.body.phoneNumber, "Esteemed customer, we have received your loan request. Kindly wait upto a maximum of 15 minutes as we process your loan")
+                leopardSMS(config.sms.customer_service, "One of Endeleza Customers needs a loan, Kindly attend to it.").catch(console.error)
+                leopardSMS(req.body.phoneNumber, "Esteemed customer, we have received your loan request. Kindly wait upto a maximum of 15 minutes as we process your loan").catch(console.error)
                 //Send Mail to Meshak to notify them of a new loan request.
                 sendMail(customer.person.first_name,customer.customer_account_msisdn, amount).catch(console.error);
 
