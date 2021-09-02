@@ -10,7 +10,7 @@ const sendLeopardSMS = async function sendMessage(phone, sms){
         headers: 
         { 'postman-token': 'f3b85a79-0035-e343-c38c-884bba115380',
             'cache-control': 'no-cache',
-            authorization: 'Basic '+Buffer.from(config.sms.leopardSMS_username+":"+config.sms.leopardSMS_password).toString('base64'),
+            authorization: 'Basic '+config.sms.leopard_Authorization,
             accept: 'application/json',
             'content-type': 'application/json' },
         body: 
@@ -23,9 +23,9 @@ const sendLeopardSMS = async function sendMessage(phone, sms){
     };
 
     request(options, function (error, response, body) {
-    if (error) throw new Error(error);
+        if (error) throw new Error(error);
 
-    console.log(response);
+        console.log(response);
     });
 }
 
