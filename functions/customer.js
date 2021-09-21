@@ -96,8 +96,16 @@ let CustomerModule =  async ( customer, text, req, res) => {
     #. To go back to the main menu`
                 res.send(response);
             }else if(lastString == 1){
-                let response = `CON Input loan amount
+                //check if the customer has a pending request.
+                let rst = await Delivery.findOne({ where: { status: 0 }});
+                let response = ""
+                if(rst.status == "0"){
+                    response = `END You already have a pending request
     #. To go back to the main menu`
+                }else{
+                    response = `CON Input loan amount
+    #. To go back to the main menu`
+                }                
                 res.send(response);
             }
         }else if(size == 2){
