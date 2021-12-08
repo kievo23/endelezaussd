@@ -193,7 +193,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
                 });
 
                 leopardSMS(config.sms.customer_service, "You have a loan request pending approval.").catch(console.error)
-                leopardSMS(req.body.phoneNumber, "Esteemed customer, we have received your loan request. Kindly wait upto a maximum of 15 minutes as we process your loan").catch(console.error)
+                leopardSMS(req.body.phoneNumber, "Esteemed customer, we have received your loan request. Kindly wait upto a maximum of 15 minutes as we process your loan. https://shorturl.at/dlmLT").catch(console.error)
                 //Send Mail to Meshak to notify them of a new loan request.
                 sendMail(customer.person.first_name,customer.customer_account_msisdn, amount).catch(console.error);
 
