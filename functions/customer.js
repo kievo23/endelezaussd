@@ -39,7 +39,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
         let dates = ''
         //console.log(deliveries)
         for (index = 0; index < loans.length; ++index) {
-            balance += Math.ceil(parseFloat(loans[index].loan_balance) + parseFloat(loans[index].loan_penalty))
+            balance += Math.ceil(parseFloat(loans[index].loan_balance))
             //console.log(loans[index].loan_balance)
             principal += Math.ceil(parseFloat(loans[index].principal_amount))
             count = count + 1
