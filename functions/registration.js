@@ -11,6 +11,7 @@ const Customer = require('../models/Customer');
 const config = require(__dirname + '/../config.json');
 //SMS
 const sendSMS = require('../functions/sendSMS');
+const leopardSMS = require('../functions/leopardSms');
 
 let registration = async(text,req, res, agent) => {
     
@@ -80,8 +81,8 @@ let registration = async(text,req, res, agent) => {
                 });
                 //notifyTwiga(customer);
                 console.log("CODE: "+ code);
-                sendSMS(phone,"Welcome "+person.first_name+", your One Time Password is: "+code+". Kindly dial "+config.app.ussdcode+" to complete the registration process");
-                let response =`END Registration successful!!`
+                leopardSMS(phone, "Dear customer, your application has been received. To review our terms and conditions, click https://tinyurl.com/3ych68bm").catch(console.error);
+                let response =`END Registration successful! Please review our terms and conditions sent via SMS`
                 res.send(response)
             }else{
                 let response =`END Client has been registered!!`
@@ -104,17 +105,16 @@ let registration = async(text,req, res, agent) => {
                     salt_key: salt,
                     agent_id: parseInt(agent.id)
                 })
-                sendSMS(phone,"Welcome "+person.first_name+", your One Time Password is: "+code+". Kindly dial "+config.app.ussdcode+" to complete the registration process");
-                //notifyTwiga(customer);
-                let response =`END Registration successful!!`
+                leopardSMS(phone, "Dear customer, your application has been received. To review our terms and conditions, click https://tinyurl.com/3ych68bm").catch(console.error)
+                let response =`END Registration successful! Please review our terms and conditions sent via SMS`
                 res.send(response)
             }else{
                 let response =`END You are already registered!!`
                 res.send(response)
             }
         }       
-
-        let response =`END Registration successful!!`
+        leopardSMS(phone, "Dear customer, your application has been received. To review our terms and conditions, click https://tinyurl.com/3ych68bm").catch(console.error)
+        let response =`END Registration successful! Please review our terms and conditions sent via SMS`
         return response
     }
 }
