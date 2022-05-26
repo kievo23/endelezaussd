@@ -97,7 +97,7 @@ let CustomerModule =  async ( customer, text, req, res) => {
                 res.send(response);
             }else if(lastString == 1){
                 //check if the customer has a pending request.
-                let result = await Delivery.findOne({ where : { status: 0, customer_account_id : customer.id }});
+                let result = await Delivery.findOne({ where : { status: 0, customer_id : customer.id }});
                 let response = ""
                 console.log(result)
                 if(result){
