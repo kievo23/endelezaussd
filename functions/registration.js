@@ -39,8 +39,9 @@ let registration = async(text,req, res, agent) => {
         let response = `CON Enter the location of the business`
         res.send(response)
     }else if(size == 7){
-        let response = `CON Confirm customer's registration?. 
-        1. Complete registration`
+        let response = `CON By registering, you accept our terms and conditions. 
+        1. Press 1 to confirm and complete registration
+        2. Cancel`
         res.send(response)
     }else if(size == 8){
         let surname = array[1].trim();
